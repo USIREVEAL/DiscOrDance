@@ -38,9 +38,9 @@ To create a private bot:
 - Create a `New Application` through the button
 - Give it a name and accept the Terms of Service for Discord
 - (Optional) Add description and tags in the `General Information`
-- Go to `Settings -> Bot` in the left pane, click `Add Bot`, and confirm
-- Click on `View Token` and take note of the `TOKEN` (see `'YOUR_API_TOKEN_HERE'` in the [Customize section](#customize-discordance-to-explore-private-servers)) to authorize the bot (in case you lose this you can generate it again from here)
-- Enable `Server Member Intent` and `Message Content Intent` and save the changes
+- Go to `Settings -> Bot` in the left pane
+- Click on `Reset Token` and copy or take note of the `TOKEN` (see `'YOUR_API_TOKEN_HERE'` in the [Customize section](#customize-discordance-to-explore-private-servers)) to authorize the bot (in case you lose this you can generate it again from here)
+- In the `Privileged Gateway Intents`, enable `Server Member Intent` and `Message Content Intent` and save the changes
 - Go to `Oauth2 -> URL Generator` and add `bot` scope and `Read Message History` permissions
 
 Copy and use the generated link to add the newly created bot to a server of interest (See [Adding DiscOrDance to the server](#adding)).
@@ -80,7 +80,7 @@ When logged in Discord’s website with a server admin account, add the DiscOrDa
 
 DiscOrDance has been used in the following publications:
 
- - Riggio, E., Raglianti, M., & Lanza, M. (2023). Conversation Disentanglement As-a-Service. Proceedings of ICPC 2023 (31st International Conference on Program Comprehension), in press, IEEE.
+ - Riggio, E., Raglianti, M., & Lanza, M. (2023). [Conversation Disentanglement As-a-Service](https://ieeexplore.ieee.org/document/10173991). _Proceedings of ICPC 2023 (31st International Conference on Program Comprehension)_, pages 59-63, IEEE.
  - Raglianti, M., Nagy, C., Minelli, R., & Lanza, M. (2022). [DiscOrDance: Visualizing Software Developers Communities on Discord](https://ieeexplore.ieee.org/document/9978235). _Proceedings of ICSME 2022 (38th International Conference on Software Maintenance and Evolution)_, pages 474-478, IEEE.
  - Raglianti, M., Nagy, C., Minelli, R., & Lanza, M. (2022). [Using Discord Conversations as Program Comprehension Aid](https://ieeexplore.ieee.org/document/9796229). _Proceedings of ICPC 2022 (30th International Conference on Program Comprehension)_, pages 597-601, ACM.
  - Raglianti, M., Minelli, R., Nagy, C., & Lanza, M. (2021). [Visualizing Discord Servers](https://ieeexplore.ieee.org/abstract/document/9604869). Proceedings of VISSOFT 2021 (9th Working Conference on Software Visualization), pages 150-154, IEEE.
