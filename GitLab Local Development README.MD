@@ -30,7 +30,3 @@ After finishing image creation you can start the DiscOrDance UI by the world men
 If you want to open some convenience browsers scoped on DiscOrDance relevant classes you can use DiscOrDance -> Utilities -> Open for Development.
 
 You can create a model by scraping a server and start exploring it.
-
-# Documentation - Older / Not relevant anymore
-
-To find old snippets of code or previous documentation which is not relevant anymore for the project, but might still be useful for other purposes, check the [old documentation reference](old_documentation_reference.md).
