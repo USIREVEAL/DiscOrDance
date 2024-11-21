@@ -193,6 +193,7 @@ DDChannel >> asJSON [
 				#printString ];
 			for: DDMessage customDo: [ :mapping | mapping encoder: #asJSONDictionary ];
 			for: DDTopic customDo: [ :mapping | mapping encoder: #asJSONDictionary ];
+			for: DDAttachment customDo: [ :mapping | mapping encoder: #asJSONDictionary ];
 			nextPut: self asJSONDictionary.
 	].
 ]
