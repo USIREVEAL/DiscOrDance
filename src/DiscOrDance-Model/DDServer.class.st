@@ -73,13 +73,7 @@ DDServer >> alphaSortedAuthors [
 
 { #category : #converting }
 DDServer >> asJSON [
-	| channelsToExport |
 	^ String streamContents: [ :stream |
-		
-		self flag: #FIXME. "Restricted to one channel for the Pharo Discord server for testing purposes."
-		channelsToExport := (self channelsNamed: 'roassal').
-		channelsToExport ifEmpty: [ channelsToExport := self textChannels ].
-		
 		(NeoJSONWriter on: stream)
 			prettyPrint: true;
 			for: DateAndTime customDo: [ :mapping | mapping encoder: #printString ];
@@ -92,7 +86,7 @@ DDServer >> asJSON [
 				#name -> self name .
 				#id -> self id .
 				#members -> self authors .
-				#channels -> channelsToExport } asDictionary.
+				#channels -> self textChannels } asDictionary.
 	].
 ]
 
