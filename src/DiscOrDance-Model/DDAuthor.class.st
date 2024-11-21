@@ -402,6 +402,11 @@ DDAuthor >> openActivitySparkline [
 		ifTrue: [ self activitySparkline open ].
 ]
 
+{ #category : #printing }
+DDAuthor >> printString [
+	^ self nickname ifNil: self name ifNotNil: [ self nickname , ' <' , self name , '>' ]
+]
+
 { #category : #accessing }
 DDAuthor >> roles [
 	^ roles

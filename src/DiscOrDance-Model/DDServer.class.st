@@ -73,13 +73,7 @@ DDServer >> alphaSortedAuthors [
 
 { #category : #converting }
 DDServer >> asJSON [
-	| channelsToExport |
 	^ String streamContents: [ :stream |
-		
-		self flag: #FIXME. "Restricted to one channel for the Pharo Discord server for testing purposes."
-		channelsToExport := (self channelsNamed: 'roassal').
-		channelsToExport ifEmpty: [ channelsToExport := self textChannels ].
-		
 		(NeoJSONWriter on: stream)
 			prettyPrint: true;
 			for: DateAndTime customDo: [ :mapping | mapping encoder: #printString ];
@@ -92,8 +86,27 @@ DDServer >> asJSON [
 				#name -> self name .
 				#id -> self id .
 				#members -> self authors .
-				#channels -> channelsToExport } asDictionary.
+				#channels -> self textChannels } asDictionary.
 	].
+]
+
+{ #category : #converting }
+DDServer >> asJSONToFile [
+	| selectedFile fileReference |
+	DDModel ensureDumpsDirectoryExists.
+	selectedFile := UIManager default 
+		chooseForSaveFileReference: 'Save server as JSON file'
+		extensions: #('json')
+		path: (DDModel defaultDumpsDirectory / ((self name) , '_server_dump.json')) pathString.
+	selectedFile
+		ifNil: [ ^ nil ]
+		ifNotNil: [
+			fileReference := selectedFile asFileReference.
+			fileReference exists ifTrue: [ fileReference delete ].
+			self exportToJSON: fileReference pathString.
+			^ fileReference
+		].
+	^ nil
 ]
 
 { #category : #accessing }
@@ -285,9 +298,25 @@ DDServer >> emojis: anObject [
 ]
 
 { #category : #exporting }
+DDServer >> exportServer [
+	<vzContextMenu>
+	self asJSONToFile
+]
+
+{ #category : #exporting }
 DDServer >> exportToJSON [
-	DDModel checkDumpsDirectory.
-	FileSystem workingDirectory / 'dumps' / ((self name) , '_server_dump.json') writeStreamDo: [ :stream | stream nextPutAll: self asJSON ].
+	"Export self in JSON format to the default dumps directory."
+	DDModel ensureDumpsDirectoryExists.
+	self exportToJSON: (DDModel defaultDumpsDirectory / ((self name) , '_server_dump.json')) pathString.
+]
+
+{ #category : #exporting }
+DDServer >> exportToJSON: aPath [
+	"Export self to the specified path as JSON text file."
+	| fileReference |
+	fileReference := aPath asFileReference.
+	fileReference writeStreamDo: [ :writeStream |
+			writeStream nextPutAll: self asJSON. ]
 ]
 
 { #category : #'finding/searching' }

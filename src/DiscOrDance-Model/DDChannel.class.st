@@ -193,6 +193,7 @@ DDChannel >> asJSON [
 				#printString ];
 			for: DDMessage customDo: [ :mapping | mapping encoder: #asJSONDictionary ];
 			for: DDTopic customDo: [ :mapping | mapping encoder: #asJSONDictionary ];
+			for: DDAttachment customDo: [ :mapping | mapping encoder: #asJSONDictionary ];
 			nextPut: self asJSONDictionary.
 	].
 ]
@@ -247,9 +248,15 @@ DDChannel >> conversations [
 ]
 
 { #category : #exporting }
+DDChannel >> exportChannel [
+	<vzContextMenu>
+	self exportToJSON
+]
+
+{ #category : #exporting }
 DDChannel >> exportToJSON [
-	DDModel checkDumpsDirectory.
-	FileSystem workingDirectory / 'dumps' / ((self fullyQualifiedName) , '_messages_dump.json') writeStreamDo: [ :stream | stream nextPutAll: self asJSON ].
+	DDModel ensureChannelDumpsDirectoryExists.
+	(DDModel defaultChannelDumpsDirectory / ((self fullyQualifiedName) , '_messages_dump.json')) writeStreamDo: [ :stream | stream nextPutAll: self asJSON ].
 ]
 
 { #category : #accessing }
