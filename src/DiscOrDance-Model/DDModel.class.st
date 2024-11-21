@@ -15,17 +15,6 @@ Class {
 }
 
 { #category : #'serialize/materialize' }
-DDModel class >> checkDumpsDirectory [
-	"Checks if the dumps directory exists and creates it if it doesn't."
-	| workingDir dumpsDir |
-
-	workingDir := FileSystem disk workingDirectory.
-	dumpsDir := workingDir / 'dumps'.
-	dumpsDir exists ifFalse: [ dumpsDir createDirectory ].
-
-]
-
-{ #category : #'serialize/materialize' }
 DDModel class >> checkModelsDirectory [
 	"Checks if the models directory exists and creates it if it doesn't."
 	| workingDir modelsDir |
@@ -36,9 +25,40 @@ DDModel class >> checkModelsDirectory [
 
 ]
 
+{ #category : #'accessing-defaults' }
+DDModel class >> defaultChannelDumpsDirectory [
+	^ self defaultDumpsDirectory / 'single-channels'.
+]
+
+{ #category : #'accessing-defaults' }
+DDModel class >> defaultDumpsDirectory [
+	^ FileLocator imageDirectory asFileReference / 'dumps'.
+]
+
 { #category : #versions }
 DDModel class >> defaultFileExtension [
 	^ '.fl'
+]
+
+{ #category : #'serialize/materialize' }
+DDModel class >> ensureChannelDumpsDirectoryExists [
+	"Checks if the default dumps directory for single channels exists in the current dumps directory and creates it if it doesn't."
+	| channelDumpsDir |
+
+	self ensureDumpsDirectoryExists.
+	channelDumpsDir := self defaultDumpsDirectory / 'single-channels'.
+	channelDumpsDir exists ifFalse: [ channelDumpsDir createDirectory ].
+
+]
+
+{ #category : #'serialize/materialize' }
+DDModel class >> ensureDumpsDirectoryExists [
+	"Checks if the default dumps directory exists in the current image directory and creates it if it doesn't."
+	| dumpsDir |
+
+	dumpsDir := self defaultDumpsDirectory.
+	dumpsDir exists ifFalse: [ dumpsDir createDirectory ].
+
 ]
 
 { #category : #versions }
